@@ -1,0 +1,98 @@
+Conv2D Accelerator (YOLO-style) - cProfile Output
+ECE 410/510 HW4AI, Spring 2026
+====================================================
+Configuration: 64x64x3 input, 16 filters 3x3, 200 iterations
+Platform: Windows-11-10.0.26200-SP0
+CPU: AMD Ryzen 7 7730U
+Python: 3.13.0, NumPy: 2.4.4
+
+--- Sorted by cumulative time ---
+         15081 function calls in 0.259 seconds
+
+   Ordered by: cumulative time
+   List reduced from 65 to 30 due to restriction <30>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      200    0.000    0.000    0.258    0.001 C:/Users/bandl/Downloads/convo2dbaseline.py:120(yolo_detection_head)
+      200    0.233    0.001    0.257    0.001 C:/Users/bandl/Downloads/convo2dbaseline.py:90(conv2d_vectorized)
+        4    0.000    0.000    0.207    0.052 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\idlelib\rpc.py:397(pollresponse)
+        3    0.000    0.000    0.190    0.063 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\idlelib\rpc.py:383(pollmessage)
+        1    0.000    0.000    0.017    0.017 C:/Users/bandl/Downloads/convo2dbaseline.py:198(profile_pipeline)
+      200    0.002    0.000    0.011    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_arraypad_impl.py:546(pad)
+      600    0.007    0.000    0.007    0.000 {method 'astype' of 'numpy.ndarray' objects}
+      400    0.001    0.000    0.005    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_arraypad_impl.py:471(_as_pairs)
+      400    0.000    0.000    0.004    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\_core\fromnumeric.py:48(_wrapfunc)
+      200    0.000    0.000    0.004    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\_core\fromnumeric.py:2207(clip)
+      200    0.000    0.000    0.003    0.000 {method 'clip' of 'numpy.ndarray' objects}
+      200    0.002    0.000    0.003    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\_core\_methods.py:96(_clip)
+      600    0.002    0.000    0.002    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_arraypad_impl.py:130(_set_pad_area)
+      200    0.000    0.000    0.002    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_stride_tricks_impl.py:400(broadcast_to)
+      200    0.001    0.000    0.002    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_stride_tricks_impl.py:373(_broadcast_to)
+      200    0.002    0.000    0.002    0.000 {built-in method numpy.zeros}
+      200    0.001    0.000    0.002    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_arraypad_impl.py:87(_pad_simple)
+        3    0.000    0.000    0.001    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\idlelib\rpc.py:352(pollpacket)
+        3    0.001    0.000    0.001    0.000 {built-in method select.select}
+      200    0.000    0.000    0.001    0.000 {method 'min' of 'numpy.ndarray' objects}
+      200    0.000    0.000    0.001    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\_core\_methods.py:43(_amin)
+      203    0.001    0.000    0.001    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+      200    0.000    0.000    0.001    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\_core\fromnumeric.py:3582(round)
+      600    0.000    0.000    0.000    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_arraypad_impl.py:59(_view_roi)
+      400    0.000    0.000    0.000    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\_core\getlimits.py:412(__init__)
+      800    0.000    0.000    0.000    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+     1200    0.000    0.000    0.000    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_arraypad_impl.py:34(_slice_at_axis)
+      400    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+      600    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+      200    0.000    0.000    0.000    0.000 {built-in method builtins.any}
+
+
+
+
+--- Sorted by total self time ---
+         15081 function calls in 0.259 seconds
+
+   Ordered by: internal time
+   List reduced from 65 to 30 due to restriction <30>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      200    0.233    0.001    0.257    0.001 C:/Users/bandl/Downloads/convo2dbaseline.py:90(conv2d_vectorized)
+      600    0.007    0.000    0.007    0.000 {method 'astype' of 'numpy.ndarray' objects}
+      200    0.002    0.000    0.003    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\_core\_methods.py:96(_clip)
+      200    0.002    0.000    0.002    0.000 {built-in method numpy.zeros}
+      200    0.002    0.000    0.011    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_arraypad_impl.py:546(pad)
+      600    0.002    0.000    0.002    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_arraypad_impl.py:130(_set_pad_area)
+      200    0.001    0.000    0.002    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_stride_tricks_impl.py:373(_broadcast_to)
+      200    0.001    0.000    0.002    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_arraypad_impl.py:87(_pad_simple)
+      400    0.001    0.000    0.005    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_arraypad_impl.py:471(_as_pairs)
+        3    0.001    0.000    0.001    0.000 {built-in method select.select}
+      203    0.001    0.000    0.001    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+      200    0.000    0.000    0.258    0.001 C:/Users/bandl/Downloads/convo2dbaseline.py:120(yolo_detection_head)
+      600    0.000    0.000    0.000    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_arraypad_impl.py:59(_view_roi)
+      400    0.000    0.000    0.000    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\_core\getlimits.py:412(__init__)
+      800    0.000    0.000    0.000    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+     1200    0.000    0.000    0.000    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_arraypad_impl.py:34(_slice_at_axis)
+      400    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+      200    0.000    0.000    0.004    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\_core\fromnumeric.py:2207(clip)
+      400    0.000    0.000    0.004    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\_core\fromnumeric.py:48(_wrapfunc)
+      600    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+      800    0.000    0.000    0.000    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_arraypad_impl.py:121(<genexpr>)
+      200    0.000    0.000    0.000    0.000 {method 'round' of 'numpy.ndarray' objects}
+      200    0.000    0.000    0.000    0.000 {built-in method builtins.any}
+      200    0.000    0.000    0.003    0.000 {method 'clip' of 'numpy.ndarray' objects}
+      800    0.000    0.000    0.000    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_arraypad_impl.py:110(<genexpr>)
+      200    0.000    0.000    0.000    0.000 {built-in method numpy.empty}
+      200    0.000    0.000    0.001    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\_core\fromnumeric.py:3582(round)
+      200    0.000    0.000    0.002    0.000 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\site-packages\numpy\lib\_stride_tricks_impl.py:400(broadcast_to)
+        3    0.000    0.000    0.190    0.063 C:\Users\bandl\AppData\Local\Programs\Python\Python313\Lib\idlelib\rpc.py:383(pollmessage)
+      200    0.000    0.000    0.001    0.000 {method 'min' of 'numpy.ndarray' objects}
+
+
+
+
+====================================================
+DOMINANT KERNEL IDENTIFICATION:
+The conv2d_vectorized function (2D convolution) accounts for 99.2% of total
+YOLO detection pipeline runtime (0.2570s out of 0.2590s over 200 runs).
+The convolution layer dominates because it performs 1,769,472 multiply-accumulate
+operations per inference, while the subsequent max pooling and post-processing are
+simple element-wise or stride operations on the already-computed feature map.
+====================================================
