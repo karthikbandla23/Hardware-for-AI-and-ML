@@ -1,132 +1,75 @@
 # CMAN — Roofline Construction and Kernel Classification
 
-## Hardware Specifications
-- **Peak compute:** 10 TFLOPS (FP32) = 10,000 GFLOP/s  
-- **Peak DRAM bandwidth:** 320 GB/s  
+## Hardware
+- Peak Compute = 10 TFLOPS (FP32) = 10,000 GFLOP/s  
+- Peak DRAM Bandwidth = 320 GB/s  
+- Ridge Point = 31.25 FLOP/byte  
 
 ---
 
-## Task 1: Roofline
+## (a) Roofline Diagram
 
-### Ridge Point
-\[
-\text{Ridge Point} = \frac{\text{Peak Compute}}{\text{Peak Bandwidth}} = \frac{10,000}{320} = 31.25 \ \text{FLOP/byte}
-\]
+![Roofline Plot](roofline_plot.png)
 
-- Any kernel with **AI > 31.25 FLOP/byte → Compute-bound**
-- Any kernel with **AI < 31.25 FLOP/byte → Memory-bound**
-
-### Roofline Description
-- Horizontal line (compute ceiling): **10,000 GFLOP/s**
-- Diagonal line (bandwidth limit): slope = **320 GB/s**
-- Intersection point: **(31.25 FLOP/byte, 10,000 GFLOP/s)**
-
-- **GEMM kernel:** 170.7 FLOP/byte → on compute ceiling  
-- **Vector add:** 0.083 FLOP/byte → on bandwidth ceiling  
+- Diagonal (bandwidth-limited): P = 320 × AI  
+- Flat ceiling (compute-limited): P = 10,000 GFLOP/s  
+- Ridge point: (31.25 FLOP/byte, 10,000 GFLOP/s)
 
 ---
 
-## Task 2: Kernel A — Dense GEMM (1024 × 1024)
+## (b) Kernel A — Dense GEMM (1024×1024)
 
-To compute each element of matrix C:
-- 1024 multiplications + 1024 additions  
-- Total = **2 × 1024 operations per element**  
-- Total elements = \(1024 \times 1024\)
+**FLOPs:**  
+2 × 1024³ = 2,147,483,648  
 
-### FLOPs
-\[
-\text{FLOPs} = 2 \times N^3 = 2 \times 1024^3 = 2,147,483,648
-\]
+**Bytes:**  
+A = 4,194,304  
+B = 4,194,304  
+C = 4,194,304  
+Total = 12,582,912  
 
-### Bytes Transferred (No Cache Reuse)
-Each element is FP32 = 4 bytes
+**AI:**  
+170.7 FLOP/byte  
 
-- Matrix A: 1024 × 1024 × 4 = 4,194,304 bytes  
-- Matrix B: 1024 × 1024 × 4 = 4,194,304 bytes  
-- Matrix C: 1024 × 1024 × 4 = 4,194,304 bytes  
+**Performance:**  
+10,000 GFLOP/s  
 
-**Total = 12,582,912 bytes**
+**Bound:**  
+Compute-bound  
 
-### Arithmetic Intensity
-\[
-\text{AI} = \frac{2,147,483,648}{12,582,912} = 170.7 \ \text{FLOP/byte}
-\]
-
-### Analysis
-
-| Property | Value |
-|--------|------|
-| AI | 170.7 FLOP/byte |
-| Ridge point | 31.25 FLOP/byte |
-| Bound | Compute-bound (170.7 >> 31.25) |
-| Attainable performance | 10,000 GFLOP/s |
-
-### Recommendation
-Kernel A is **compute-bound**, so improvements should target:
-- More **FMA units**
-- Wider **SIMD/vector units**
-- Better **compute throughput**
-
-Increasing memory bandwidth will not significantly improve performance.
+**Recommendation:**  
+Increase compute throughput (more FMA units or wider SIMD).
 
 ---
 
-## Task 3: Kernel B — Vector Addition (Length = 4,194,304)
+## (c) Kernel B — Vector Addition (4,194,304 elements)
 
-Each element:
-- Load A[i], load B[i], compute A[i] + B[i], store result
+**FLOPs:**  
+4,194,304  
 
-### FLOPs
-\[
-\text{FLOPs} = 4,194,304
-\]
+**Bytes:**  
+A = 16,777,216  
+B = 16,777,216  
+C = 16,777,216  
+Total = 50,331,648  
 
-### Bytes Transferred (No Cache Reuse)
+**AI:**  
+0.083 FLOP/byte  
 
-- Vector A: 4,194,304 × 4 = 16,777,216 bytes  
-- Vector B: 4,194,304 × 4 = 16,777,216 bytes  
-- Vector C: 4,194,304 × 4 = 16,777,216 bytes  
+**Performance:**  
+26.7 GFLOP/s  
 
-**Total = 50,331,648 bytes**
+**Bound:**  
+Memory-bound  
 
-### Arithmetic Intensity
-\[
-\text{AI} = \frac{4,194,304}{50,331,648} = 0.083 \ \text{FLOP/byte}
-\]
-
-### Performance
-\[
-P = \text{AI} \times \text{Bandwidth} = 0.083 \times 320 = 26.7 \ \text{GFLOP/s}
-\]
-
-### Analysis
-
-| Property | Value |
-|--------|------|
-| AI | 0.083 FLOP/byte |
-| Ridge point | 31.25 FLOP/byte |
-| Bound | Memory-bound (0.083 << 31.25) |
-| Attainable performance | 26.7 GFLOP/s |
-
-### Recommendation
-Kernel B is **memory-bound**, so improvements should target:
-- Higher **memory bandwidth** (e.g., HBM)
-- Better **memory access patterns**
-- Reducing memory traffic (fusion, streaming)
-
-Adding compute units will not help since they are already underutilized.
+**Recommendation:**  
+Increase memory bandwidth (e.g., HBM).
 
 ---
 
-## Summary
+## (d) Summary
 
-| Kernel | FLOPs | Bytes | AI (FLOP/byte) | Bound | Attainable (GFLOP/s) |
-|--------|------|------|---------------|------|----------------------|
-| GEMM 1024×1024 | 2,147,483,648 | 12,582,912 | 170.7 | Compute | 10,000 |
-| Vector Add (4M) | 4,194,304 | 50,331,648 | 0.083 | Memory | 26.7 |
-
----
-
-## Final Note
-- **Ridge point:** 31.25 FLOP/byte  
-- Determines transition between memory-bound and compute-bound regions in the roofline model.
+| Kernel | FLOPs | Bytes | AI | Bound | GFLOP/s |
+|--------|------|------|----|------|--------|
+| GEMM | 2,147,483,648 | 12,582,912 | 170.7 | Compute | 10,000 |
+| Vector Add | 4,194,304 | 50,331,648 | 0.083 | Memory | 26.7 |
