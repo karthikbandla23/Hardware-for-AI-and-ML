@@ -1,15 +1,5 @@
 # CMAN 3 — DRAM Traffic Analysis (Naive vs Tiled)
 
-## Setup
-
-- Matrix size: N = 32  
-- Tile size: T = 8  
-- FP32 = 4 bytes  
-- DRAM Bandwidth = 320 GB/s  
-- Compute = 10 TFLOPS  
-
----
-
 ## 1. Naive Matrix Multiplication
 
 Total accesses:
