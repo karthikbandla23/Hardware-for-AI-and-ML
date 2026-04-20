@@ -1,112 +1,123 @@
+# CMAN 3 — DRAM Traffic Analysis (Naive vs Tiled)
 
-Given
-Matrix size: N = 32
-Tile size: T = 8
-FP32 = 4 bytes
-DRAM Bandwidth = 320 GB/s
-Compute = 10 TFLOPS
-1. Naive Matrix Multiply (ijk)
+## Setup
 
-For each output element:
+- Matrix size: N = 32  
+- Tile size: T = 8  
+- FP32 = 4 bytes  
+- DRAM Bandwidth = 320 GB/s  
+- Compute = 10 TFLOPS  
 
-Read N elements from A
-Read N elements from B
+---
+
+## 1. Naive Matrix Multiplication
 
 Total accesses:
 
-A = N³ = 32³ = 32,768
-B = N³ = 32³ = 32,768
-Total = 2N³ = 65,536
+- A accesses = N³ = 32³ = 32,768  
+- B accesses = N³ = 32,768  
+- Writes (C) = N² = 1,024  
 
-Add C writes:
+### DRAM Traffic
 
-C = N² = 1,024
-Total DRAM Traffic
-T
-naive
-	​
+- A: 32,768 × 4 = 131,072 bytes  
+- B: 32,768 × 4 = 131,072 bytes  
+- C: 1,024 × 4 = 4,096 bytes  
 
-=(2N
-3
-+N
-2
-)×4
-=(65,536+1,024)×4=266,240 bytes ≈260 KB
-2. Tiled Matrix Multiply (T = 8)
-(a) Traditional Tiling
-Each element reused T = 8 times
-Each element loaded N/T = 4 times
-T
-tiled
-	​
+**Total:**
 
-=(2N
-3
-/T+N
-2
-)×4
-=(8,192+1,024)×4=36,864 bytes ≈36 KB
-(b) Ideal Reuse (Perfect Cache/Shared Memory)
+T_naive = 131,072 + 131,072 + 4,096 = 266,240 bytes
 
-Each element loaded only once:
 
-T
-ideal
-	​
+---
 
-=3N
-2
-×4
-=3×1,024×4=12,288 bytes =12 KB
-3. Traffic Reduction
-Naive → Tiled:
-≈T=8× reduction
-Naive → Ideal:
-≈N=32× reduction (dominant term)
-4. Arithmetic Intensity & Performance
-Ridge Point
-I
-rp
-	​
+## 2. Tiled Matrix Multiplication (T = 8)
 
-=
-320 GB/s
-10 TFLOPS
-	​
+Number of tiles:
 
-=31.25 FLOPs/byte
-Work
-FLOPs=2N
-3
-=65,536
-Compute Time
-T
-comp
-	​
+(N / T)² = (32 / 8)² = 16 tiles
 
-=
-10
-13
-65,536
-	​
 
-=6.55 ns
-5. Comparison Table
-Metric	Naive	Tiled	Ideal
-Bytes	266,240	36,864	12,288
-Arithmetic Intensity	0.246	1.78	5.33
-Memory Time	831.4 ns	115.2 ns	38.4 ns
-Compute Time	6.55 ns	6.55 ns	6.55 ns
-Total Time	837.95 ns	121.75 ns	44.95 ns
-Final Insight (Very Important)
-All cases are memory-bound
-Because:
-Arithmetic Intensity≪31.25
+Each tile:
 
-Even with perfect reuse:
+T × T = 8 × 8 = 64 elements
+Bytes per tile = 64 × 4 = 256 bytes
 
-Compute is underutilized
-Performance is limited by memory bandwidth
-One-Line Summary
 
-Tiling reduces DRAM traffic significantly (8× to 32×), but for small matrices like N = 32, the computation is still memory-bound, not compute-bound.
+### DRAM Traffic
+
+- A: 64 tiles × 256 = 16,384 bytes  
+- B: 64 tiles × 256 = 16,384 bytes  
+- C writes: 1,024 × 4 = 4,096 bytes  
+
+**Total:**
+
+T_tiled = 16,384 + 16,384 + 4,096 = 36,864 bytes
+
+
+---
+
+## 3. Traffic Reduction Ratio
+
+
+Ratio = T_naive / T_tiled
+= 266,240 / 36,864
+≈ 7.22 ≈ 8
+
+
+**Conclusion:**
+
+- Tiling reduces DRAM traffic by approximately **T = 8**
+- Reason: each element is reused within tiles instead of reloaded
+
+---
+
+## 4. Performance Analysis
+
+### Total FLOPs
+
+
+Work = 2N³ = 2 × 32³ = 65,536 FLOPs
+
+
+### Ridge Point
+
+
+I_ridge = Compute / Bandwidth
+= 10 TFLOPS / 320 GB/s
+= 31.25 FLOPs/byte
+
+
+### Compute Time
+
+
+T_compute = 65,536 / (10 × 10¹²)
+= 6.55 × 10⁻⁹ sec
+
+
+---
+
+## Memory Time
+
+### Naive
+
+
+T_mem_naive = 266,240 / (320 × 10⁹)
+= 8.32 × 10⁻⁷ sec
+
+
+### Tiled
+
+
+T_mem_tiled = 36,864 / (320 × 10⁹)
+= 1.15 × 10⁻⁷ sec
+
+
+---
+
+## Final Conclusion
+
+- Naive: Memory time ≫ Compute time → **Memory Bound**
+- Tiled: Memory time still > Compute time → **Memory Bound**
+
+Even after tiling, performance is limited by memory bandwidth.
