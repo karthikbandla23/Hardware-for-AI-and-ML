@@ -1,0 +1,7 @@
+Using device: cuda
+GPU Name: Tesla T4
+Model device: cuda:0
+Input shape: torch.Size([16, 4])
+Input device: cuda:0
+Output shape: torch.Size([16, 1])
+Output device: cuda:0
