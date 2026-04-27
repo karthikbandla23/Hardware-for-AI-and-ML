@@ -10,8 +10,8 @@
 
 | File | LLM | Model version |
 |------|-----|----------------|
-| `mac_llm_A.v` | ChatGPT-5 |
-| `mac_llm_B.v` | Claude Opus 4.7 |
+| `mac_llm_A.v` | ChatGPT | 5
+| `mac_llm_B.v` | Claude  | Opus 4.7
 
 ---
 
