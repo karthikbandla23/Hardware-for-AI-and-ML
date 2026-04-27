@@ -159,10 +159,3 @@ W_deq_bad = [  0.85, -1.20,  0.34,  1.27 ]
 
 ---
 
-## Deliverable Checklist
-
-- [x] **(a)** S computation with max value shown — Task 1
-- [x] **(b)** 4×4 INT8 matrix `W_q` — Task 2
-- [x] **(c)** 4×4 FP32 dequantized matrix `W_deq` — Task 3
-- [x] **(d)** Largest-error element identified, MAE computed — Task 4
-- [x] **(e)** S_bad experiment with MAE and one-sentence explanation — Task 5
