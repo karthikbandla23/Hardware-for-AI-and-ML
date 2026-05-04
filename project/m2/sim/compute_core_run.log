@@ -1,0 +1,9 @@
+VCD info: dumpfile compute_core.vcd opened for output.
+[TB] T1: 3x3x3 Sobel-x convolution (representative kernel)
+[TB] T1: dut_out=24  ref=24  done_seen=1
+[TB] T2: mixed-sign deterministic 27-tap stream
+[TB] T2: dut_out=32853  ref=32853  done_seen=1
+======================================
+tb_compute_core: PASS
+======================================
+tb/tb_compute_core.sv:196: $finish called at 606000 (1ps)

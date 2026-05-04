@@ -1,0 +1,13 @@
+VCD info: dumpfile interface.vcd opened for output.
+[TB] Independent reference (Sobel-x 3x3x3) = 24
+[TB] W1: AXI4-Lite write CTRL <- 0x1 (START)
+[TB] W1 OK: BRESP=OKAY
+[TB] R1a: STATUS = 0x00000002 (BUSY expected = 1)
+[TB] S1: streaming 27 beats on s_axis
+[TB] S2: receiving output beat on m_axis
+[TB] S2: m_axis_tdata = 24  ref = 24  tlast = 1
+[TB] R1b: RESULT register = 24  (resp=0)
+======================================
+tb_interface: PASS
+======================================
+tb/tb_interface.sv:315: $finish called at 445000 (1ps)
