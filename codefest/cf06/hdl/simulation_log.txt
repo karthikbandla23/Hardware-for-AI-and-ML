@@ -1,0 +1,23 @@
+$ iverilog -g2012 -o crossbar_tb.out crossbar_mac.sv crossbar_tb.sv
+$ vvp crossbar_tb.out
+
+=== Programming Weight Matrix ===
+W = [[ 1,-1, 1,-1],
+     [ 1, 1,-1,-1],
+     [-1, 1, 1,-1],
+     [-1,-1,-1, 1]]
+
+=== Applying Input Vector [10, 20, 30, 40] ===
+
+=== Simulation Results ===
+out[j]   Expected   Got    Status
+----------------------------------
+out[0]     -40       -40   PASS
+out[1]       0         0   PASS
+out[2]     -20       -20   PASS
+out[3]     -20       -20   PASS
+----------------------------------
+Total: 4 PASS  0 FAIL
+
+crossbar_tb PASSED: all outputs match hand-computed values.
+$finish called at 376000 (1ps)
