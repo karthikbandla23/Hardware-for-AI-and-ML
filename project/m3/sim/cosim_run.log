@@ -1,0 +1,18 @@
+VCD info: dumpfile cosim.vcd opened for output.
+[TB] Independent reference (3x3x3 Sobel-x) = 24
+[TB] E1: AXI4-Lite write CTRL (0x00) <- 0x1 (START)
+[TB] E1 OK: BRESP=OKAY
+[TB] E2: STATUS = 0x00000002  BUSY[1]=1 (expected 1)
+[TB] E2 OK: BUSY asserted
+[TB] E3: Streaming 27 beats (3x3x3 Sobel-x kernel)
+[TB] E3: Stream complete
+[TB] E4: Receiving output beat on m_axis
+[TB] E4: m_axis_tdata=24  ref=24  tlast=1
+[TB] E4 OK: stream output correct
+[TB] E4 OK: m_axis_tlast asserted
+[TB] E5: RESULT reg = 24  resp=0  (expected 24, OKAY)
+[TB] E5 OK: RESULT register matches reference
+======================================
+tb_top: PASS
+======================================
+/home/claude/m3/tb/tb_top.sv:375: $finish called at 445000 (1ps)
