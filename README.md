@@ -1,3 +1,9 @@
+## M4 Submission — Full-Layer INT8 Conv2D Accelerator
+
+Milestone 4 is complete. The full deliverable package is at [project/m4/](project/m4/README.md).
+
+Design justification report: [project/m4/report/design_justification.pdf](project/m4/report/design_justification.pdf)
+
 # Project Compute Core — INT8 2D Convolution Accelerator (YOLO Layer)
 
 **Course:** ECE 410/510 — HW4AI, Spring 2026
