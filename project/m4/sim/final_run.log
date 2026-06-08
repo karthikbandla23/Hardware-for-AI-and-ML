@@ -1,0 +1,12 @@
+[TB] Progress: beats=0/4096  cyc=646
+[TB] Progress: beats=1024/4096  cyc=34438
+[TB] Progress: beats=2048/4096  cyc=68230
+[TB] Progress: beats=3072/4096  cyc=102022
+[TB] beats=4096/4096  tlast=1  cyc=135655
+[TB] pos(0,0) f0=1  exp=1
+[TB] pos(0,1) f0=0  exp=0
+[TB] pos(1,0) f0=2  exp=2
+======================================
+tb_top: PASS
+======================================
+- tb/tb_top.sv:255: Verilog $finish
